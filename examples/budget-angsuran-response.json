@@ -1,0 +1,141 @@
+{
+  "is_dummy": true,
+  "sumber_perhitungan": "rumus_lokal_dummy",
+  "versi_model": "demo-calibrated-v2",
+  "profil": {
+    "wilayah": "jakarta_jawa_barat_banten",
+    "tipe_konsumen": "perorangan",
+    "kategori_kendaraan": "non_ev",
+    "asuransi": "comprehensive"
+  },
+  "penyesuaian_tarif_profil": false,
+  "profil_acuan_tarif": {
+    "zona": "Jakarta, Jawa Barat dan Banten",
+    "konsumen": "Perorangan",
+    "kategori": "Non Elektrik/Hybrid",
+    "asuransi": "Comprehensive Non Electric Vehicle",
+    "prioritas": false,
+    "tlp": false,
+    "pa": false,
+    "promo": null
+  },
+  "input": {
+    "tipe_konsumen": "perorangan",
+    "kategori_kendaraan": "non_ev",
+    "asuransi": "comprehensive",
+    "harga_kendaraan": 300000000,
+    "jenis_budget": "angsuran",
+    "nominal_budget": 5000000,
+    "wilayah": "jakarta_jawa_barat_banten"
+  },
+  "hasil": [
+    {
+      "tenor_bulan": 12,
+      "uang_muka": 241061000,
+      "pokok_hutang": 58939000,
+      "biaya_awal_agregat_dummy": 10139100,
+      "total_bayar_pertama": 256200100,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5000000
+        }
+      ],
+      "semua_periode_dalam_budget": true,
+      "selisih_budget_periode_pertama": 0
+    },
+    {
+      "tenor_bulan": 24,
+      "uang_muka": 185168100,
+      "pokok_hutang": 114831900,
+      "biaya_awal_agregat_dummy": 17796400,
+      "total_bayar_pertama": 207964500,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5000000
+        }
+      ],
+      "semua_periode_dalam_budget": true,
+      "selisih_budget_periode_pertama": 0
+    },
+    {
+      "tenor_bulan": 36,
+      "uang_muka": 131854800,
+      "pokok_hutang": 168145200,
+      "biaya_awal_agregat_dummy": 25489700,
+      "total_bayar_pertama": 162344500,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5000000
+        }
+      ],
+      "semua_periode_dalam_budget": true,
+      "selisih_budget_periode_pertama": 0
+    },
+    {
+      "tenor_bulan": 48,
+      "uang_muka": 89105900,
+      "pokok_hutang": 210894100,
+      "biaya_awal_agregat_dummy": 32805300,
+      "total_bayar_pertama": 126911200,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5000000
+        }
+      ],
+      "semua_periode_dalam_budget": true,
+      "selisih_budget_periode_pertama": 0
+    },
+    {
+      "tenor_bulan": 60,
+      "uang_muka": 60000000,
+      "pokok_hutang": 240000000,
+      "biaya_awal_agregat_dummy": 39228700,
+      "total_bayar_pertama": 104228700,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5000000
+        },
+        {
+          "periode": 2,
+          "nominal_per_bulan": 5152300
+        }
+      ],
+      "semua_periode_dalam_budget": false,
+      "selisih_budget_periode_pertama": 0
+    },
+    {
+      "tenor_bulan": 72,
+      "uang_muka": 35296400,
+      "pokok_hutang": 264703600,
+      "biaya_awal_agregat_dummy": 45230000,
+      "total_bayar_pertama": 85526400,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5000000
+        },
+        {
+          "periode": 2,
+          "nominal_per_bulan": 5106300
+        }
+      ],
+      "semua_periode_dalam_budget": false,
+      "selisih_budget_periode_pertama": 0
+    }
+  ],
+  "tidak_tersedia": [],
+  "catatan": [
+    "Pilihan profil diterima, tetapi belum mengubah tarif; semua kombinasi menggunakan koefisien acuan yang sama. EV kombinasi diterima hanya untuk dummy, bukan validasi produk resmi.",
+    "Bukan API resmi BCA dan tidak mengakses website secara langsung.",
+    "Biaya awal agregat dan koefisien dikalibrasi dari contoh, bukan tarif resmi.",
+    "Batas bulan setiap periode belum diketahui; periode tidak boleh digabung atau dirata-ratakan.",
+    "Budget angsuran menargetkan periode pertama; periksa semua_periode_dalam_budget.",
+    "Model demo mengizinkan uang muka nol; ini bukan ketentuan kelayakan kredit resmi.",
+    "Hasil simulasi bukan persetujuan kredit."
+  ]
+}

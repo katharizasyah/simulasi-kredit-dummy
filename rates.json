@@ -1,0 +1,79 @@
+{
+  "version": "demo-calibrated-v2",
+  "reference_price": 300000000,
+  "reference_principal": 210000000,
+  "tenors": {
+    "12": {
+      "reference_installments": [
+        17815000
+      ],
+      "reference_initial_cost": 10139100
+    },
+    "24": {
+      "reference_installments": [
+        9143800
+      ],
+      "reference_initial_cost": 17796400
+    },
+    "36": {
+      "reference_installments": [
+        6244600
+      ],
+      "reference_initial_cost": 25489700
+    },
+    "48": {
+      "reference_installments": [
+        4978800
+      ],
+      "reference_initial_cost": 32805300
+    },
+    "60": {
+      "reference_installments": [
+        4375000,
+        4508200
+      ],
+      "reference_initial_cost": 39228700
+    },
+    "72": {
+      "reference_installments": [
+        3966700,
+        4051000
+      ],
+      "reference_initial_cost": 45230000
+    }
+  },
+  "input_options": {
+    "wilayah": [
+      "jakarta_jawa_barat_banten",
+      "sumatera",
+      "lainnya"
+    ],
+    "tipe_konsumen": [
+      "perorangan",
+      "badan_usaha"
+    ],
+    "kategori_kendaraan": [
+      "non_ev",
+      "ev"
+    ],
+    "asuransi": [
+      "comprehensive",
+      "kombinasi"
+    ]
+  },
+  "input_defaults": {
+    "tipe_konsumen": "perorangan",
+    "kategori_kendaraan": "non_ev",
+    "asuransi": "comprehensive"
+  },
+  "reference_profile": {
+    "zona": "Jakarta, Jawa Barat dan Banten",
+    "konsumen": "Perorangan",
+    "kategori": "Non Elektrik/Hybrid",
+    "asuransi": "Comprehensive Non Electric Vehicle",
+    "prioritas": false,
+    "tlp": false,
+    "pa": false,
+    "promo": null
+  }
+}

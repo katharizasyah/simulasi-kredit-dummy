@@ -1,0 +1,585 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Simulasi Mobil Baru — Kredit dan Budget (Dummy)",
+    "version": "2.0.0",
+    "description": "Simulasi dummy Kredit dan Budget mobil baru. Wilayah wajib; default perorangan, non_ev, comprehensive. Pilihan profil dicatat, tetapi tarif belum dibedakan antarprofil. Bukan API resmi BCA."
+  },
+  "servers": [
+    {
+      "url": "https://YOUR-APP.azurewebsites.net"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/simulations/credit": {
+      "post": {
+        "operationId": "simulateKredit",
+        "summary": "Simulasi Kredit Mobil Baru (Dummy)",
+        "description": "Gunakan ketika pengguna mengetahui harga kendaraan dan uang muka Rupiah. Menghasilkan pokok hutang, total bayar pertama, dan semua periode angsuran.  Wilayah wajib. Gunakan default perorangan, non_ev, comprehensive bila tidak disebutkan. Angka masih memakai tarif dummy acuan yang sama untuk semua profil.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreditRequest"
+              },
+              "example": {
+                "harga_kendaraan": 300000000,
+                "uang_muka": 90000000,
+                "wilayah": "jakarta_jawa_barat_banten"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hasil demo; hasil bisa kosong, lihat tidak_tersedia.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API key salah atau hilang",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Body terlalu besar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Gunakan Content-Type application/json",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Input tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/simulations/budget": {
+      "post": {
+        "operationId": "simulateBudget",
+        "summary": "Simulasi Budget Mobil Baru (Dummy)",
+        "description": "Gunakan ketika pengguna mengetahui harga kendaraan dan batas pembayaran pertama atau angsuran bulanan. Budget angsuran menargetkan periode pertama; wajib laporkan jika periode berikutnya melebihi budget. Hasil kosong berarti tidak ada opsi yang memenuhi batas dalam model demo. Wilayah wajib. Gunakan default perorangan, non_ev, comprehensive bila tidak disebutkan. Angka masih memakai tarif dummy acuan yang sama untuk semua profil.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetRequest"
+              },
+              "example": {
+                "harga_kendaraan": 300000000,
+                "jenis_budget": "angsuran",
+                "nominal_budget": 5000000,
+                "wilayah": "jakarta_jawa_barat_banten"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hasil demo; hasil bisa kosong, lihat tidak_tersedia.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "JSON tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API key salah atau hilang",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Body terlalu besar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Gunakan Content-Type application/json",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Input tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "CreditRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "harga_kendaraan",
+          "uang_muka",
+          "wilayah"
+        ],
+        "properties": {
+          "harga_kendaraan": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 100,
+            "maximum": 10000000000,
+            "description": "Harga kendaraan dalam Rupiah. Contoh 300000000."
+          },
+          "uang_muka": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "maximum": 10000000000,
+            "description": "Uang muka dalam Rupiah, bukan persen dan bukan Total Bayar Pertama. Harus lebih kecil dari harga kendaraan."
+          },
+          "tenor_bulan": {
+            "type": "integer",
+            "enum": [
+              12,
+              24,
+              36,
+              48,
+              60,
+              72
+            ],
+            "description": "Opsional. Jika dihilangkan, kembalikan seluruh tenor demo 12–72 bulan."
+          },
+          "wilayah": {
+            "type": "string",
+            "enum": [
+              "jakarta_jawa_barat_banten",
+              "sumatera",
+              "lainnya"
+            ],
+            "description": "Wajib. Zona: Jakarta/Jawa Barat/Banten; Sumatera dan sekitarnya; atau wilayah lainnya. Tidak memiliki default."
+          },
+          "tipe_konsumen": {
+            "type": "string",
+            "enum": [
+              "perorangan",
+              "badan_usaha"
+            ],
+            "default": "perorangan",
+            "description": "Default perorangan jika field tidak dikirim."
+          },
+          "kategori_kendaraan": {
+            "type": "string",
+            "enum": [
+              "non_ev",
+              "ev"
+            ],
+            "default": "non_ev",
+            "description": "Default non_ev, mencakup non elektrik/hybrid. ev untuk kendaraan elektrik."
+          },
+          "asuransi": {
+            "type": "string",
+            "enum": [
+              "comprehensive",
+              "kombinasi"
+            ],
+            "default": "comprehensive",
+            "description": "Default comprehensive. Kombinasi diterima dalam demo; bukan konfirmasi ketersediaan produk resmi untuk EV."
+          }
+        }
+      },
+      "BudgetRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "harga_kendaraan",
+          "jenis_budget",
+          "nominal_budget",
+          "wilayah"
+        ],
+        "properties": {
+          "harga_kendaraan": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 100,
+            "maximum": 10000000000,
+            "description": "Harga kendaraan dalam Rupiah. Contoh 300000000."
+          },
+          "jenis_budget": {
+            "type": "string",
+            "enum": [
+              "angsuran",
+              "pembayaran_pertama"
+            ],
+            "description": "Angsuran membatasi periode pertama; periode berikutnya mungkin lebih tinggi. Pembayaran pertama membatasi total awal termasuk biaya dummy dan angsuran pertama."
+          },
+          "nominal_budget": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "maximum": 10000000000,
+            "description": "Nominal Rupiah utuh tanpa titik, koma, atau simbol mata uang."
+          },
+          "tenor_bulan": {
+            "type": "integer",
+            "enum": [
+              12,
+              24,
+              36,
+              48,
+              60,
+              72
+            ],
+            "description": "Opsional. Jika dihilangkan, kembalikan seluruh tenor demo 12–72 bulan."
+          },
+          "wilayah": {
+            "type": "string",
+            "enum": [
+              "jakarta_jawa_barat_banten",
+              "sumatera",
+              "lainnya"
+            ],
+            "description": "Wajib. Zona: Jakarta/Jawa Barat/Banten; Sumatera dan sekitarnya; atau wilayah lainnya. Tidak memiliki default."
+          },
+          "tipe_konsumen": {
+            "type": "string",
+            "enum": [
+              "perorangan",
+              "badan_usaha"
+            ],
+            "default": "perorangan",
+            "description": "Default perorangan jika field tidak dikirim."
+          },
+          "kategori_kendaraan": {
+            "type": "string",
+            "enum": [
+              "non_ev",
+              "ev"
+            ],
+            "default": "non_ev",
+            "description": "Default non_ev, mencakup non elektrik/hybrid. ev untuk kendaraan elektrik."
+          },
+          "asuransi": {
+            "type": "string",
+            "enum": [
+              "comprehensive",
+              "kombinasi"
+            ],
+            "default": "comprehensive",
+            "description": "Default comprehensive. Kombinasi diterima dalam demo; bukan konfirmasi ketersediaan produk resmi untuk EV."
+          }
+        }
+      },
+      "SimulationResponse": {
+        "type": "object",
+        "required": [
+          "is_dummy",
+          "sumber_perhitungan",
+          "versi_model",
+          "input",
+          "hasil",
+          "tidak_tersedia",
+          "catatan",
+          "profil",
+          "penyesuaian_tarif_profil",
+          "profil_acuan_tarif"
+        ],
+        "properties": {
+          "is_dummy": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "sumber_perhitungan": {
+            "type": "string"
+          },
+          "versi_model": {
+            "type": "string"
+          },
+          "input": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "hasil": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "tenor_bulan",
+                "uang_muka",
+                "pokok_hutang",
+                "biaya_awal_agregat_dummy",
+                "total_bayar_pertama",
+                "angsuran"
+              ],
+              "properties": {
+                "uang_muka": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0
+                },
+                "pokok_hutang": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0
+                },
+                "biaya_awal_agregat_dummy": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0
+                },
+                "total_bayar_pertama": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0
+                },
+                "selisih_budget_periode_pertama": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0
+                },
+                "sisa_budget_pembayaran_pertama": {
+                  "type": "integer",
+                  "format": "int64",
+                  "minimum": 0
+                },
+                "tenor_bulan": {
+                  "type": "integer",
+                  "enum": [
+                    12,
+                    24,
+                    36,
+                    48,
+                    60,
+                    72
+                  ],
+                  "description": "Opsional. Jika dihilangkan, kembalikan seluruh tenor demo 12–72 bulan."
+                },
+                "semua_periode_dalam_budget": {
+                  "type": "boolean",
+                  "description": "Hanya pada budget angsuran. False jika ada periode melampaui nominal budget."
+                },
+                "angsuran": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "periode",
+                      "nominal_per_bulan"
+                    ],
+                    "properties": {
+                      "periode": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "nominal_per_bulan": {
+                        "type": "integer",
+                        "format": "int64",
+                        "minimum": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tidak_tersedia": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "tenor_bulan",
+                "alasan"
+              ],
+              "properties": {
+                "tenor_bulan": {
+                  "type": "integer",
+                  "enum": [
+                    12,
+                    24,
+                    36,
+                    48,
+                    60,
+                    72
+                  ],
+                  "description": "Opsional. Jika dihilangkan, kembalikan seluruh tenor demo 12–72 bulan."
+                },
+                "alasan": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "catatan": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "profil": {
+            "type": "object",
+            "required": [
+              "wilayah",
+              "tipe_konsumen",
+              "kategori_kendaraan",
+              "asuransi"
+            ],
+            "properties": {
+              "wilayah": {
+                "type": "string",
+                "enum": [
+                  "jakarta_jawa_barat_banten",
+                  "sumatera",
+                  "lainnya"
+                ],
+                "description": "Wajib. Zona: Jakarta/Jawa Barat/Banten; Sumatera dan sekitarnya; atau wilayah lainnya. Tidak memiliki default."
+              },
+              "tipe_konsumen": {
+                "type": "string",
+                "enum": [
+                  "perorangan",
+                  "badan_usaha"
+                ],
+                "default": "perorangan",
+                "description": "Default perorangan jika field tidak dikirim."
+              },
+              "kategori_kendaraan": {
+                "type": "string",
+                "enum": [
+                  "non_ev",
+                  "ev"
+                ],
+                "default": "non_ev",
+                "description": "Default non_ev, mencakup non elektrik/hybrid. ev untuk kendaraan elektrik."
+              },
+              "asuransi": {
+                "type": "string",
+                "enum": [
+                  "comprehensive",
+                  "kombinasi"
+                ],
+                "default": "comprehensive",
+                "description": "Default comprehensive. Kombinasi diterima dalam demo; bukan konfirmasi ketersediaan produk resmi untuk EV."
+              }
+            }
+          },
+          "penyesuaian_tarif_profil": {
+            "type": "boolean",
+            "enum": [
+              false
+            ],
+            "description": "False: parameter profil belum mengubah angka tarif dummy."
+          },
+          "profil_acuan_tarif": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

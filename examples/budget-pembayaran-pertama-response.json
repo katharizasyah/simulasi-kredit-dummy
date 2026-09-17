@@ -1,0 +1,135 @@
+{
+  "is_dummy": true,
+  "sumber_perhitungan": "rumus_lokal_dummy",
+  "versi_model": "demo-calibrated-v2",
+  "profil": {
+    "wilayah": "jakarta_jawa_barat_banten",
+    "tipe_konsumen": "perorangan",
+    "kategori_kendaraan": "non_ev",
+    "asuransi": "comprehensive"
+  },
+  "penyesuaian_tarif_profil": false,
+  "profil_acuan_tarif": {
+    "zona": "Jakarta, Jawa Barat dan Banten",
+    "konsumen": "Perorangan",
+    "kategori": "Non Elektrik/Hybrid",
+    "asuransi": "Comprehensive Non Electric Vehicle",
+    "prioritas": false,
+    "tlp": false,
+    "pa": false,
+    "promo": null
+  },
+  "input": {
+    "tipe_konsumen": "perorangan",
+    "kategori_kendaraan": "non_ev",
+    "asuransi": "comprehensive",
+    "harga_kendaraan": 300000000,
+    "jenis_budget": "pembayaran_pertama",
+    "nominal_budget": 100000000,
+    "wilayah": "jakarta_jawa_barat_banten"
+  },
+  "hasil": [
+    {
+      "tenor_bulan": 12,
+      "uang_muka": 70381600,
+      "pokok_hutang": 229618400,
+      "biaya_awal_agregat_dummy": 10139100,
+      "total_bayar_pertama": 100000000,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 19479300
+        }
+      ],
+      "sisa_budget_pembayaran_pertama": 0
+    },
+    {
+      "tenor_bulan": 24,
+      "uang_muka": 72288600,
+      "pokok_hutang": 227711400,
+      "biaya_awal_agregat_dummy": 17796400,
+      "total_bayar_pertama": 100000000,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 9915000
+        }
+      ],
+      "sisa_budget_pembayaran_pertama": 0
+    },
+    {
+      "tenor_bulan": 36,
+      "uang_muka": 67599500,
+      "pokok_hutang": 232400500,
+      "biaya_awal_agregat_dummy": 25489700,
+      "total_bayar_pertama": 100000000,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 6910800
+        }
+      ],
+      "sisa_budget_pembayaran_pertama": 0
+    },
+    {
+      "tenor_bulan": 48,
+      "uang_muka": 61541100,
+      "pokok_hutang": 238458900,
+      "biaya_awal_agregat_dummy": 32805300,
+      "total_bayar_pertama": 100000000,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5653600
+        }
+      ],
+      "sisa_budget_pembayaran_pertama": 0
+    },
+    {
+      "tenor_bulan": 60,
+      "uang_muka": 55681300,
+      "pokok_hutang": 244318700,
+      "biaya_awal_agregat_dummy": 39228700,
+      "total_bayar_pertama": 100000000,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 5090000
+        },
+        {
+          "periode": 2,
+          "nominal_per_bulan": 5245000
+        }
+      ],
+      "sisa_budget_pembayaran_pertama": 0
+    },
+    {
+      "tenor_bulan": 72,
+      "uang_muka": 50048600,
+      "pokok_hutang": 249951400,
+      "biaya_awal_agregat_dummy": 45230000,
+      "total_bayar_pertama": 100000000,
+      "angsuran": [
+        {
+          "periode": 1,
+          "nominal_per_bulan": 4721400
+        },
+        {
+          "periode": 2,
+          "nominal_per_bulan": 4821700
+        }
+      ],
+      "sisa_budget_pembayaran_pertama": 0
+    }
+  ],
+  "tidak_tersedia": [],
+  "catatan": [
+    "Pilihan profil diterima, tetapi belum mengubah tarif; semua kombinasi menggunakan koefisien acuan yang sama. EV kombinasi diterima hanya untuk dummy, bukan validasi produk resmi.",
+    "Bukan API resmi BCA dan tidak mengakses website secara langsung.",
+    "Biaya awal agregat dan koefisien dikalibrasi dari contoh, bukan tarif resmi.",
+    "Batas bulan setiap periode belum diketahui; periode tidak boleh digabung atau dirata-ratakan.",
+    "Budget angsuran menargetkan periode pertama; periksa semua_periode_dalam_budget.",
+    "Model demo mengizinkan uang muka nol; ini bukan ketentuan kelayakan kredit resmi.",
+    "Hasil simulasi bukan persetujuan kredit."
+  ]
+}
